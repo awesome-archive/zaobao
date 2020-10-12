@@ -1,13 +1,50 @@
 {
   "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage --coverageReporters=text-lcov | coveralls",
+    "commit": "commit",
     "lint:md": "lint-md ./docs/",
-    "docs:dev": "vuepress dev docs",
-    "docs:build": "vuepress build docs"
+    "lint:js": "eslint --fix .",
+    "doc:dev": "vuepress dev docs",
+    "doc:build": "vuepress build docs",
+    "doc:deploy": "bash ./deploy.sh",
+    "update:deps": "yarn upgrade-interactive --latest"
   },
   "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@babel/preset-env": "^7.2.3",
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@commitlint/prompt-cli": "^9.0.1",
+    "@commitlint/travis-cli": "^9.0.1",
+    "@vssue/vuepress-plugin-vssue": "^1.4.6",
     "@vuepress/plugin-google-analytics": "^1.0.0-alpha.0",
-    "lint-md": "^0.0.8",
-    "rss": "^1.2.2",
-    "vuepress": "^1.0.0-alpha.30"
+    "babel-7-jest": "^21.3.3",
+    "babel-jest": "^26.1.0",
+    "coveralls": "^3.0.6",
+    "eslint": "^7.3.1",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "husky": "^4.2.5",
+    "jest": "^26.1.0",
+    "lint-staged": "^10.2.11",
+    "vuepress": "^1.5.2",
+    "vuepress-plugin-baidu-google-analytics": "^1.0.2",
+    "vuepress-plugin-rss-support": "^1.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@vssue/api-github-v3": "^1.4.4",
+    "lint-md-cli": "^0.1.2"
   }
 }
